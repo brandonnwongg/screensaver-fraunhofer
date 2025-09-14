@@ -6,7 +6,7 @@ public class GridCell : MonoBehaviour
     public Vector3Int gridSize = new Vector3Int(20,20,20);
     public float spacing = 1.0f;
 
-    public Color lineColor = new Color(1f, 1f, 1f, 0.25f);
+    public Color lineColor = new Color(1,1,0,1);
     public bool drawX = true; // lines parallel to X (at every Y/Z boundary)
     public bool drawY = true; // lines parallel to Y (at every X/Z boundary)
     public bool drawZ = true; // lines parallel to Z (at every X/Y boundary)
