@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+//just to test to see whether the logic from CellGrid3D works
 public class CellSpawnerDemo : MonoBehaviour
 {
     public Vector3Int gridSize = new Vector3Int(10,10,10);
