@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9671843c776ea48dda0c46498bdafd55, type: 3}
   m_Name: Screensaver Settiings
   m_EditorClassIdentifier: Assembly-CSharp::PipeSettings
-  gridSize: {x: 20, y: 20, z: 20}
+  gridSize: {x: 10, y: 10, z: 10}
   spacing: 1
   maxPipes: 10
-  maxSegmentsPerPipe: 30
-  growthDelay: 0.05
-  spherePrefab: {fileID: 0}
-  cylinderPrefab: {fileID: 0}
+  maxSegmentsPerPipe: 10
+  growthDelay: 1
+  spherePrefab: {fileID: 9084504084345989525, guid: 1f08bf0e36f384ab79a12501947d6434, type: 3}
+  cylinderPrefab: {fileID: 2906956661239965205, guid: fe119abe3e16147e88000c642b53aa4b, type: 3}

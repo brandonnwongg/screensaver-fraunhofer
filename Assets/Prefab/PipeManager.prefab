@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15db73b604edc46e48518550da422937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipeManager
-  settings: {fileID: 0}
+  settings: {fileID: 11400000, guid: 93be35df1fe444ca2951da7c5bebd851, type: 2}
   generatorPrefab: {fileID: 475320123300970627, guid: 9fe0bb9fa30264c54bac2f29b4fb4e56, type: 3}

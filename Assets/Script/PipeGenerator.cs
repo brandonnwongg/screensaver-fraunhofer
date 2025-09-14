@@ -36,10 +36,14 @@ public class PipeGenerator : MonoBehaviour
 
     private IEnumerator GrowPipe(Vector3Int startCell)
     {
+        // Pick a random color for this pipe
+        Material pipeMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        pipeMaterial.color = new Color(Random.value, Random.value, Random.value);
+
         Vector3Int currentCell = startCell;
         grid.Occupy(currentCell);
 
-        SpawnSphere(currentCell);
+        SpawnSphere(currentCell, pipeMaterial);
 
         int segments = 0;
         Vector3Int prevDirection = Vector3Int.zero;
@@ -51,14 +55,14 @@ public class PipeGenerator : MonoBehaviour
 
             if (neighbouringCell.Count == 0)
             {
-                SpawnSphere(currentCell);
+                SpawnSphere(currentCell, pipeMaterial);
                 yield break;
             }
 
             Vector3Int nextCell = neighbouringCell[Random.Range(0, neighbouringCell.Count)];
             Vector3Int direction = nextCell - currentCell;
 
-            SpawnCylinder(currentCell, direction);
+            SpawnCylinder(currentCell, direction, pipeMaterial);
 
             grid.Occupy(nextCell);
             currentCell = nextCell;
@@ -68,17 +72,20 @@ public class PipeGenerator : MonoBehaviour
             yield return new WaitForSeconds(settings.growthDelay);
         }
 
-        SpawnSphere(currentCell);
+        SpawnSphere(currentCell, pipeMaterial);
     }
 
-    private void SpawnSphere(Vector3Int cell)
+    private void SpawnSphere(Vector3Int cell, Material material)
     {
         if (settings.spherePrefab == null) return;
         Vector3 pos = GridToWorld(cell);
-        Instantiate(settings.spherePrefab, pos, Quaternion.identity, transform);
+        GameObject go = Instantiate(settings.spherePrefab, pos, Quaternion.identity, transform);
+
+        var renderer = go.GetComponent<Renderer>();
+        if (renderer != null) renderer.material = material;
     }
 
-    private void SpawnCylinder(Vector3Int fromCell, Vector3Int direction)
+    private void SpawnCylinder(Vector3Int fromCell, Vector3Int direction, Material material)
     {
         if (settings.cylinderPrefab == null) return;
 
@@ -95,6 +102,10 @@ public class PipeGenerator : MonoBehaviour
             (to - from).magnitude / 2f,
             cyl.transform.localScale.z
         );
+
+        var renderer = cyl.GetComponent<Renderer>();
+        if (renderer != null) renderer.material = material;
+
     }
 
     private Vector3 GridToWorld(Vector3Int cell)
