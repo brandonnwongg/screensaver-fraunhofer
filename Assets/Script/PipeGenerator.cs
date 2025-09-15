@@ -37,7 +37,7 @@ public class PipeGenerator : MonoBehaviour
     private IEnumerator GrowPipe(Vector3Int startCell)
     {
         // Pick a random color for this pipe
-        Material pipeMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        Material pipeMaterial = PipeMaterial.CreateRandomMaterial();
         pipeMaterial.color = new Color(Random.value, Random.value, Random.value);
 
         Vector3Int currentCell = startCell;
