@@ -11,10 +11,14 @@ public class PipeSettings : ScriptableObject
     // max amount of segments allowed per pipe until a new pipe starts
     public int maxSegmentsPerPipe = 30;
     // time delay for each segment to grow
-    public float growthDelay = 0.2f;
+    public float growthDelay = 0.6f;
+
+    public float pipeThickness = 0.4f;
 
     // start and end  of pipe
     public GameObject spherePrefab;
     // body of pipe
     public GameObject cylinderPrefab;
+
+    
 }
