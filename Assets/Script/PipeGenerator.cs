@@ -25,12 +25,17 @@ public class PipeGenerator : MonoBehaviour
 
     private IEnumerator RunPipes()
     {
+        while(true)
+        {
         for (int i = 0; i < settings.maxPipes; i++)
         {
             if (!grid.PickFirstFree(out Vector3Int startCell))
                 yield break; // grid full
 
-            yield return StartCoroutine(GrowPipe(startCell));
+            yield return GrowPipe(startCell);
+        }
+
+        grid.Clear();
         }
     }
 
@@ -38,7 +43,6 @@ public class PipeGenerator : MonoBehaviour
     {
         // Pick a random color for this pipe
         Material pipeMaterial = PipeMaterial.CreateRandomMaterial();
-        pipeMaterial.color = new Color(Random.value, Random.value, Random.value);
 
         Vector3Int currentCell = startCell;
         grid.Occupy(currentCell);
@@ -61,6 +65,11 @@ public class PipeGenerator : MonoBehaviour
 
             Vector3Int nextCell = neighbouringCell[Random.Range(0, neighbouringCell.Count)];
             Vector3Int direction = nextCell - currentCell;
+
+            if (prevDirection != Vector3Int.zero && direction != prevDirection)
+            {
+                SpawnSphere(currentCell, pipeMaterial);
+            }
 
             SpawnCylinder(currentCell, direction, pipeMaterial);
 

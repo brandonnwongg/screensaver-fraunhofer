@@ -16,6 +16,7 @@ MonoBehaviour:
   spacing: 1
   maxPipes: 10
   maxSegmentsPerPipe: 20
-  growthDelay: 0.7
+  growthDelay: 0.09
+  pipeThickness: 0.3
   spherePrefab: {fileID: 9084504084345989525, guid: 1f08bf0e36f384ab79a12501947d6434, type: 3}
   cylinderPrefab: {fileID: 2906956661239965205, guid: fe119abe3e16147e88000c642b53aa4b, type: 3}

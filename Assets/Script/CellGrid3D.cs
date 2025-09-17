@@ -65,4 +65,13 @@ public class CellGrid3D
         return false;
     }
 
+    public void Clear()
+    {
+        for (int z = 0; z < Size.z; z++)
+        for (int y = 0; y < Size.y; y++)
+        for (int x = 0; x < Size.x; x++)
+            occupied[x, y, z] = false;
+    }
+
+
 }
