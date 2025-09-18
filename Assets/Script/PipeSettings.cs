@@ -16,7 +16,10 @@ public class PipeSettings : ScriptableObject
 
     [Header("Pipe Growth Settings")]
     [Tooltip("Delay (in seconds) between adding each new pipe segment.")]
-    public float growthDelay = 0.2f;
+    public float growthDelay = 0.05f;
+
+    [Tooltip("Thickness of the pipe segments.")]
+    public float pipeThickness = 0.4f;
 
     [Header("Pipe Prefabs")]
     [Tooltip("Prefab used at the start and end of each pipe segment (sphere).")]

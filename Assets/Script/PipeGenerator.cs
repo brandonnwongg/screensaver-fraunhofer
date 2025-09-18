@@ -100,6 +100,8 @@ public class PipeGenerator : MonoBehaviour
 
         GameObject go = Instantiate(settings.spherePrefab, pos, Quaternion.identity, transform);
 
+        go.transform.localScale = Vector3.one * settings.pipeThickness;
+
         var renderer = go.GetComponent<Renderer>();
         if (renderer != null) renderer.material = material;
     }
@@ -120,12 +122,14 @@ public class PipeGenerator : MonoBehaviour
 
         GameObject cyl = Instantiate(settings.cylinderPrefab, mid, Quaternion.identity, transform);
         cyl.transform.up = dir; // orient along pipe direction
-        cyl.transform.localScale = new Vector3(
-            cyl.transform.localScale.x,
-            (to - from).magnitude / 2f, // scale to match distance
-            cyl.transform.localScale.z
-        );
         
+        Vector3 scale = cyl.transform.localScale;
+        scale.x = settings.pipeThickness; 
+        scale.z = settings.pipeThickness;   
+        scale.y = (to - from).magnitude / 2f; 
+        cyl.transform.localScale = scale;
+
+
         var renderer = cyl.GetComponent<Renderer>();
         if (renderer != null) renderer.material = material;
     }

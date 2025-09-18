@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PipeSettings
   gridSize: {x: 10, y: 10, z: 10}
   spacing: 1
-  growthDelay: 0.2
+  growthDelay: 0.05
+  pipeThickness: 0.4
   spherePrefab: {fileID: 8942057376730313968, guid: 43fa1fa5225f44641801354064df5c8f, type: 3}
   cylinderPrefab: {fileID: 7209051859262551893, guid: edd8cf01e9e1c462f9e1f8da343e0920, type: 3}
