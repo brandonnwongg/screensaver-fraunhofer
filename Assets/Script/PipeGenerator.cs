@@ -37,9 +37,28 @@ public class PipeGenerator : MonoBehaviour
     /// </summary>
     private IEnumerator RunPipes()
     {
-        while (grid.PickFirstFree(out Vector3Int startCell))
+        int pipeCount = 0;
+
+        while (true)
         {
-            yield return StartCoroutine(GrowPipe(startCell));
+            if (pipeCount >= settings.maxPipes)
+            {
+                // Destroy all previously spawned pipe objects
+                foreach (Transform child in transform)
+                {
+                    GameObject.Destroy(child.gameObject);
+                }
+
+                // Reset logic grid
+                grid = new SpawnGrid(settings.gridSize);
+                pipeCount = 0;
+            }
+
+            if (!grid.PickFirstFree(out Vector3Int startCell))
+                yield break; // grid full
+
+        yield return StartCoroutine(GrowPipe(startCell));
+        pipeCount++;
         }
     }
 

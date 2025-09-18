@@ -21,6 +21,9 @@ public class PipeSettings : ScriptableObject
     [Tooltip("Thickness of the pipe segments.")]
     public float pipeThickness = 0.4f;
 
+    [Tooltip("Number of pipes before the system resets the grid.")]
+    public int maxPipes = 4;
+    
     [Header("Pipe Prefabs")]
     [Tooltip("Prefab used at the start and end of each pipe segment (sphere) and change in direction during growth")]
     public GameObject spherePrefab;
