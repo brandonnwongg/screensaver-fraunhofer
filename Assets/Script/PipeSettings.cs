@@ -22,7 +22,7 @@ public class PipeSettings : ScriptableObject
     public float pipeThickness = 0.4f;
 
     [Header("Pipe Prefabs")]
-    [Tooltip("Prefab used at the start and end of each pipe segment (sphere).")]
+    [Tooltip("Prefab used at the start and end of each pipe segment (sphere) and change in direction during growth")]
     public GameObject spherePrefab;
 
     [Tooltip("Prefab used for the body of each pipe segment (cylinder).")]

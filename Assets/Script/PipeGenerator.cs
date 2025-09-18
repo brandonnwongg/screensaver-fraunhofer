@@ -78,6 +78,13 @@ public class PipeGenerator : MonoBehaviour
             Vector3Int nextCell = neighbours[Random.Range(0, neighbours.Count)];
             Vector3Int direction = nextCell - currentCell;
 
+            // Check for a change in direction
+            if (prevDirection != Vector3Int.zero && direction != prevDirection)
+            {
+            // Spawn a sphere at the corner to smooth the bend
+            SpawnSphere(currentCell, pipeMaterial);
+            }
+
             SpawnCylinder(currentCell, direction, pipeMaterial);
 
             grid.Occupy(nextCell);
