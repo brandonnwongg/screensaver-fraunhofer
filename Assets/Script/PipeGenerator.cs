@@ -48,10 +48,14 @@ public class PipeGenerator : MonoBehaviour
     /// </summary>
     private IEnumerator GrowPipe(Vector3Int startCell)
     {
+         // Pick a random color for this pipe
+        Material pipeMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        pipeMaterial.color = new Color(Random.value, Random.value, Random.value);
+
         Vector3Int currentCell = startCell;
         grid.Occupy(currentCell);
 
-        SpawnSphere(currentCell);
+        SpawnSphere(currentCell, pipeMaterial);
 
         Vector3Int prevDirection = Vector3Int.zero;
 
@@ -66,7 +70,7 @@ public class PipeGenerator : MonoBehaviour
             if (neighbours.Count == 0)
             {
                 // Dead end
-                SpawnSphere(currentCell);
+                SpawnSphere(currentCell, pipeMaterial);
                 yield break;
             }
 
@@ -74,7 +78,7 @@ public class PipeGenerator : MonoBehaviour
             Vector3Int nextCell = neighbours[Random.Range(0, neighbours.Count)];
             Vector3Int direction = nextCell - currentCell;
 
-            SpawnCylinder(currentCell, direction);
+            SpawnCylinder(currentCell, direction, pipeMaterial);
 
             grid.Occupy(nextCell);
             currentCell = nextCell;
@@ -89,18 +93,22 @@ public class PipeGenerator : MonoBehaviour
     /// Spawns a sphere prefab at the given grid cell.
     /// Used for pipe start and end segments
     /// </summary>
-    private void SpawnSphere(Vector3Int cell)
+    private void SpawnSphere(Vector3Int cell, Material material)
     {
         if (settings.spherePrefab == null) return;
         Vector3 pos = GridToWorld(cell);
-        Instantiate(settings.spherePrefab, pos, Quaternion.identity, transform);
+
+        GameObject go = Instantiate(settings.spherePrefab, pos, Quaternion.identity, transform);
+
+        var renderer = go.GetComponent<Renderer>();
+        if (renderer != null) renderer.material = material;
     }
 
     /// <summary>
     /// Spawns a cylinder prefab between two grid cells.
     /// Scaled and rotated to connect the cells correctly.
     /// </summary>
-    private void SpawnCylinder(Vector3Int fromCell, Vector3Int direction)
+    private void SpawnCylinder(Vector3Int fromCell, Vector3Int direction, Material material)
     {
         if (settings.cylinderPrefab == null) return;
 
@@ -117,6 +125,9 @@ public class PipeGenerator : MonoBehaviour
             (to - from).magnitude / 2f, // scale to match distance
             cyl.transform.localScale.z
         );
+        
+        var renderer = cyl.GetComponent<Renderer>();
+        if (renderer != null) renderer.material = material;
     }
 
     /// <summary>
