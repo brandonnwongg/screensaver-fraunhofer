@@ -22,6 +22,7 @@ public class PipeManager : MonoBehaviour
         generatorInstance = Instantiate(generatorPrefab, Vector3.zero, Quaternion.identity, transform);
 
         // Inject configuration and grid so the generator can start producing pipes
-        generatorInstance.Initialize(settings, grid);
+        PipeRenderer visuals = new PipeRenderer(settings, generatorInstance.transform);
+        generatorInstance.Initialize(settings, grid, visuals);
     }
 }
