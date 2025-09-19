@@ -25,9 +25,9 @@ public class PipeSettings : ScriptableObject
     public int maxPipes = 4;
     
     [Header("Pipe Prefabs")]
-    [Tooltip("Prefab used at the start and end of each pipe segment (sphere) and change in direction during growth")]
-    public GameObject spherePrefab;
+    [Tooltip("Prefab used at the start and end of each pipe segment and change in direction during growth")]
+    public GameObject edgePrefab;
 
-    [Tooltip("Prefab used for the body of each pipe segment (cylinder).")]
-    public GameObject cylinderPrefab;
+    [Tooltip("Prefab used for the body of each pipe segment")]
+    public GameObject bodyPrefab;
 }
