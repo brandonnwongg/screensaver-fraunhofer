@@ -30,25 +30,25 @@ public class PipeRenderer
     }
 
     /// <summary>
-    /// Spawns a sphere prefab at the given grid cell.
-    /// Used for pipe start and end segments
+    /// Spawns a prefab for the edges of the pipe at the given grid cell.
+    /// Used for pipe start and end segments and when the pipe makes a turn.
     /// </summary>
-    public void SpawnSphere(Vector3Int cell, Material material)
+    public void SpawnEdge(Vector3Int cell, Material material)
     {
-        if (settings.spherePrefab == null) return;
+        if (settings.edgePrefab == null) return;
 
-        var go = Object.Instantiate(settings.spherePrefab, GridToWorld(cell), Quaternion.identity, parent);
+        var go = Object.Instantiate(settings.edgePrefab, GridToWorld(cell), Quaternion.identity, parent);
         go.transform.localScale = Vector3.one * settings.pipeThickness;
         go.GetComponent<Renderer>().material = material;
     }
 
     /// <summary>
-    /// Spawns a cylinder prefab between two grid cells.
+    /// Spawns a prefab used to connect pipe segments going in the same direction
     /// Scaled and rotated to connect the cells correctly.
     /// </summary>
-    public void SpawnCylinder(Vector3Int fromCell, Vector3Int direction, Material material)
+    public void SpawnBody(Vector3Int fromCell, Vector3Int direction, Material material)
     {
-        if (settings.cylinderPrefab == null) return;
+        if (settings.bodyPrefab == null) return;
 
         Vector3 from = GridToWorld(fromCell);
         Vector3 to   = GridToWorld(fromCell + direction);
@@ -56,14 +56,14 @@ public class PipeRenderer
         Vector3 mid = (from + to) / 2f;
         Vector3 dir = (to - from).normalized;
 
-        var cyl = Object.Instantiate(settings.cylinderPrefab, mid, Quaternion.identity, parent);
-        cyl.transform.up = dir;
-        cyl.transform.localScale = new Vector3(
+        var body = Object.Instantiate(settings.bodyPrefab, mid, Quaternion.identity, parent);
+        body.transform.up = dir;
+        body.transform.localScale = new Vector3(
             settings.pipeThickness,
             (to - from).magnitude / 2f,
             settings.pipeThickness
         );
-        cyl.GetComponent<Renderer>().material = material;
+        body.GetComponent<Renderer>().material = material;
     }
 
     private Vector3 GridToWorld(Vector3Int cell)
